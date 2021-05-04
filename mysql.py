@@ -19,7 +19,7 @@ class Database:
                                       (user_id,)).fetchall()
             return bool(len(result))
 
-    def add_user(self, user_id, sub_status=0):
+    def add_user(self, user_id, sub_status=1):
         with self.connection:
             return self.cur.execute(""" INSERT INTO `users` (`user_id`, `sub_status`) VALUES(?,?) """,
                                     (user_id, sub_status))
@@ -28,6 +28,11 @@ class Database:
         with self.connection:
             return self.cur.execute(""" UPDATE `users` SET `sub_status` = ? WHERE `user_id` = ? """,
                                     (sub_status, user_id))
+
+    def remove_user(self, user_id):
+        with self.connection:
+            return self.cur.execute(""" DELETE FROM `users` WHERE `user_id` = ?""",
+                                    (user_id,))
 
     def close(self):
         self.connection.close()
