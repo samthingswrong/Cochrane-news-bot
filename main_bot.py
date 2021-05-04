@@ -104,5 +104,5 @@ async def unknown(message: types.Message):
 
 if __name__ == '__main__':
     loop = asyncio.get_event_loop()
-    loop.create_task(scheduled(10))  # пока что оставим 10 секунд (в качестве теста)
+    loop.create_task(scheduled(1))
     executor.start_polling(dp, skip_updates=True)
