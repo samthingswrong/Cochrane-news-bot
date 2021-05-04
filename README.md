@@ -14,9 +14,11 @@
 
 `/unsub` –– cancel subscription
 
-### **How to run:**
+### **How to use:**
 
 *Project is running on the server*
+
+*Follow the link:* https://t.me/CochraneNews_bot
 
 ## **Example:**
 
