@@ -54,7 +54,7 @@ class NewsParser:
         self.last_post_key = new_post_key
 
     def get_new_post_key(self):
-        content = get_content()
+        content = self.get_content()
         new_post = get_html(content[0]['article_link'])
         new_post_key = int(re.findall(r'\d{4,6}', re.findall(r'page-node-\d{4,6}', new_post.text)[0])[0])
         return new_post_key
