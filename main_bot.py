@@ -3,6 +3,7 @@ import keyboards as kb
 import parser as prs
 import mysql
 import asyncio
+import re
 
 from config import API_TOKEN, commands
 from aiogram import Bot, Dispatcher, executor, types
@@ -36,7 +37,7 @@ async def scheduled(wait_for):
             news_parser.update_last_post_key(new_post)
 
 
-@dp.message_handler(commands=['sub', '/sub'])
+@dp.message_handler(commands=['sub'])
 async def subscribe(message: types.Message):
     if not db.user_exists(message.from_user.id):
         db.add_user(message.from_user.id)
@@ -44,7 +45,7 @@ async def subscribe(message: types.Message):
     await message.answer('You are subscribed. Wait for new events! 🤓')
 
 
-@dp.message_handler(commands=['unsub', '/unsub'])
+@dp.message_handler(commands=['unsub'])
 async def unsubscribe(message: types.Message):
     if not db.user_exists(message.from_user.id):
         db.add_user(message.from_user.id)
@@ -52,13 +53,13 @@ async def unsubscribe(message: types.Message):
     await message.answer('You are unsubscribed 😭')
 
 
-@dp.message_handler(commands=['start', '/start'])
+@dp.message_handler(commands=['start'])
 async def say_hi(message: types.Message):
     db.add_user(message.from_user.id)
     await bot.send_message(message.from_user.id, 'Hello!', reply_markup=kb.greet_kb)
 
 
-@dp.message_handler(commands=['news', '/news'])
+@dp.message_handler(commands=['news'])
 async def send_news(message: types.Message):
     html = prs.get_html(prs.NEWS_URL)
     content = prs.get_content(html.text, prs.NEWS_URL)
@@ -72,7 +73,23 @@ async def send_news(message: types.Message):
                              )
 
 
-@dp.message_handler(commands=['help', '/help'])
+@dp.message_handler(commands=['topnews'])
+async def send_news(message: types.Message):
+    html = prs.get_html(prs.NEWS_URL)
+    content = prs.get_content(html.text, prs.NEWS_URL)
+    numb = int(re.findall(r'\d', message.text))
+    for i in range(numb):
+        news = content[i]
+        kb.inline_button_link.url = news['article_link']
+        await bot.send_photo(message.from_user.id,
+                             news['img_link'],
+                             caption=news['short_description'].upper() + '\n' + news['publish_date'] + '\n',
+                             disable_notification=True,
+                             reply_markup=kb.inline_kb_link
+                             )
+
+
+@dp.message_handler(commands=['help'])
 async def help(message: types.Message):
     msg = ''
     for command in commands:
