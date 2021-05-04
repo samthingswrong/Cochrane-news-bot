@@ -1,6 +1,7 @@
 import sqlite3
 import shutil
 
+
 class Database:
     def __init__(self, db):
         shutil.copyfile("db/users.db", "new_users.db")
