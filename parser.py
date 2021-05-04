@@ -59,7 +59,3 @@ class NewsParser:
         new_post = get_html(content[0]['article_link'])
         new_post_key = int(re.findall(r'\d{4,6}', re.findall(r'page-node-\d{4,6}', new_post.text)[0])[0])
         return new_post_key
-
-
-p = NewsParser()
-p.get_evidence()
