@@ -90,7 +90,7 @@ async def send_news(message: types.Message):
 @dp.message_handler(commands=['top_evidence'])
 async def send_news(message: types.Message):
     content = news_parser.get_evidence()
-    numb = int(re.findall(r'\d', message.text)[0])
+    numb = int(re.findall(r'\d\d?', message.text)[0])
     for i in range(numb):
         news = content[i]
         kb.inline_button_link.url = news['article_link']
