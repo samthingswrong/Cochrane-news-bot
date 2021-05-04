@@ -10,23 +10,23 @@ class Database:
 
     def get_users(self, sub_status=1):
         with self.connection:
-            return self.cur.execute("SELECT * FROM `users` WHERE `sub_status` = ?",
+            return self.cur.execute(""" SELECT * FROM `users` WHERE `sub_status` = ? """,
                                     (sub_status,)).fetchall()
 
     def user_exists(self, user_id):
         with self.connection:
-            result = self.cur.execute('SELECT * FROM `users` WHERE `user_id` = ?',
+            result = self.cur.execute(""" SELECT * FROM `users` WHERE `user_id` = ? """,
                                       (user_id,)).fetchall()
             return bool(len(result))
 
     def add_user(self, user_id, sub_status=0):
         with self.connection:
-            return self.cur.execute("INSERT INTO `users` (`user_id`, `sub_status`) VALUES(?,?)",
+            return self.cur.execute(""" INSERT INTO `users` (`user_id`, `sub_status`) VALUES(?,?) """,
                                     (user_id, sub_status))
 
     def update_subscription(self, user_id, sub_status):
         with self.connection:
-            return self.cur.execute("UPDATE `users` SET `sub_status` = ? WHERE `user_id` = ?",
+            return self.cur.execute(""" UPDATE `users` SET `sub_status` = ? WHERE `user_id` = ? """,
                                     (sub_status, user_id))
 
     def close(self):

@@ -1,4 +1,6 @@
 from os import environ
+
+
 API_TOKEN = environ['API_KEY']
 
 commands = ['/help - open command list',

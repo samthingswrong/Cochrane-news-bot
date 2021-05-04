@@ -1,14 +1,13 @@
-# import logging
-import keyboards as kb
-import parser as prs
 import mysql
-import asyncio
 import re
 
-from config import API_TOKEN, commands
+import asyncio
 from aiogram import Bot, Dispatcher, executor, types
 
-# logging.basicConfig(level=logging.INFO)
+import keyboards as kb
+import parser as prs
+from config import API_TOKEN, commands
+
 
 bot = Bot(token=API_TOKEN)
 dp = Dispatcher(bot)
@@ -72,7 +71,7 @@ async def send_news(message: types.Message):
 
 
 @dp.message_handler(commands=['top_news'])
-async def send_news(message: types.Message):
+async def send_top_news(message: types.Message):
     content = news_parser.get_content()
     numb = int(re.findall(r'\d', message.text)[0])
     for i in range(numb):
@@ -87,7 +86,7 @@ async def send_news(message: types.Message):
 
 
 @dp.message_handler(commands=['top_evidence'])
-async def send_news(message: types.Message):
+async def send_top_evidence(message: types.Message):
     content = news_parser.get_evidence()
     numb = int(re.findall(r'\d\d?', message.text)[0])
     for i in range(numb):
