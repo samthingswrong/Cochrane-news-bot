@@ -1,0 +1,17 @@
+name: test
+
+on:
+  push:
+    branches: [ master, dev ]
+  pull_request:
+    branches: [ master, dev ]
+jobs:
+  run_test:
+    runs-on: ubuntu-latest
+    env:
+      API_KEY: 1538451446:AAGPDqowCQ6cWhbcxCb8GxYSFV0nahBwUMU
+    steps:
+      - uses: actions/checkout@v1
+      - name: "Build and run tests"
+        run : |
+          ls
