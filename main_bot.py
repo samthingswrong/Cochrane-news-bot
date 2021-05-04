@@ -23,8 +23,7 @@ async def scheduled(wait_for):
 
         new_post = news_parser.get_new_post_key()
         if new_post != news_parser.get_last_post_key():
-            html = prs.get_html(prs.NEWS_URL)
-            post = prs.get_content(html.text, prs.NEWS_URL)[0]
+            post = news_parser.get_content()[0]
             kb.inline_button_link.url = post['article_link']
             subscriptions = db.get_users()
             for s in subscriptions:
@@ -90,7 +89,7 @@ async def send_news(message: types.Message):
 @dp.message_handler(commands=['top_evidence'])
 async def send_news(message: types.Message):
     content = news_parser.get_evidence()
-    numb = int(re.findall(r'\d\d?', message.text)[0])
+    numb = int(re.findall(r'\d{2}', message.text)[0])
     for i in range(numb):
         news = content[i]
         kb.inline_button_link.url = news['article_link']
