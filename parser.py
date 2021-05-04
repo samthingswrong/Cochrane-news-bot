@@ -49,7 +49,7 @@ class NewsParser:
                     'publish_date': lvl1_find.find('div',
                                                    class_='views-field views-field-field-version-published').get_text()
                 })
-        return l
+        return news_content
 
     def get_last_post_key(self):
         return self.last_post_key
