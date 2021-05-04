@@ -3,8 +3,8 @@ import re
 import requests
 from bs4 import BeautifulSoup
 
+
 NEWS_URL = 'https://www.cochrane.org'
-LIB_URL = 'https://www.cochranelibrary.com'
 
 
 def get_html(url, params_=''):
@@ -18,6 +18,7 @@ class NewsParser:
         self.url = NEWS_URL
         self.html_ = get_html(self.url)
 
+    # Get latest Cochrane evidence
     def get_evidence(self):
         soup = BeautifulSoup(self.html_.text, 'html.parser')
         items = soup.find('div', id='top10', class_='latest-top').find_all('div', class_='views-row')
@@ -29,6 +30,7 @@ class NewsParser:
             })
         return evidence_content
 
+    # Get latest News and Events
     def get_content(self):
         soup = BeautifulSoup(self.html_.text, 'html.parser')
         items = soup.find_all('div', class_='views-row')

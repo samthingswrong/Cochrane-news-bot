@@ -16,6 +16,7 @@ db = mysql.Database("new_users.db")
 news_parser = prs.NewsParser()
 
 
+# Check for new post and send it to subscribers
 async def scheduled(wait_for):
     while True:
         await asyncio.sleep(wait_for)
@@ -53,10 +54,11 @@ async def unsubscribe(message: types.Message):
 
 @dp.message_handler(commands=['start'])
 async def say_hi(message: types.Message):
-    db.add_user(message.from_user.id)
+    db.add_user(message.from_user.id, 0)
     await bot.send_message(message.from_user.id, 'Hello!', reply_markup=kb.greet_kb)
 
 
+# Send latest News and Events
 @dp.message_handler(commands=['news'])
 async def send_news(message: types.Message):
     content = news_parser.get_content()
@@ -70,6 +72,7 @@ async def send_news(message: types.Message):
                              )
 
 
+# Send latest [1-8] News and Events
 @dp.message_handler(commands=['top_news'])
 async def send_top_news(message: types.Message):
     content = news_parser.get_content()
@@ -85,6 +88,7 @@ async def send_top_news(message: types.Message):
                              )
 
 
+# Send latest [1-10] evidence
 @dp.message_handler(commands=['top_evidence'])
 async def send_top_evidence(message: types.Message):
     content = news_parser.get_evidence()
@@ -99,6 +103,7 @@ async def send_top_evidence(message: types.Message):
                                )
 
 
+# Open command list
 @dp.message_handler(commands=['help'])
 async def help(message: types.Message):
     msg = ''
@@ -107,6 +112,7 @@ async def help(message: types.Message):
     await message.answer(msg)
 
 
+# Report error or wrong command
 @dp.message_handler()
 async def unknown(message: types.Message):
     await message.answer("Type /help to open command list!")
