@@ -14,6 +14,10 @@
 
 `/unsub` –– cancel subscription
 
+### **How to run:**
+
+*Project is running on the server*
+
 ## **Example:**
 
 ![alt text](screenshots/screen1.png "Example-1")​
