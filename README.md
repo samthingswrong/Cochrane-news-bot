@@ -2,7 +2,7 @@
 
 ### **Description:**
 
-*Cochrane-news-bot ––d telegram bot whose goal is to collect latest news and events from medical portal Cochrane.org and send them to user.*
+*Cochrane-news-bot –– telegram bot whose goal is to collect latest news and events from medical portal Cochrane.org and send them to user.*
 
 ### **Commands:**
 
