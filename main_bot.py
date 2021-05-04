@@ -61,7 +61,7 @@ async def say_hi(message: types.Message):
 
 @dp.message_handler(commands=['news'])
 async def send_news(message: types.Message):
-    content = news_parser.get_content(news_parser.html_, news_parser.url)
+    content = news_parser.get_content(news_parser.html_.text, news_parser.url)
     for news in content:
         kb.inline_button_link.url = news['article_link']
         await bot.send_photo(message.from_user.id,
@@ -74,7 +74,7 @@ async def send_news(message: types.Message):
 
 @dp.message_handler(commands=['top_news'])
 async def send_news(message: types.Message):
-    content = news_parser.get_content(news_parser.html_, news_parser.url)
+    content = news_parser.get_content(news_parser.html_.text, news_parser.url)
     numb = int(re.findall(r'\d', message.text)[0])
     for i in range(numb):
         news = content[i]
@@ -89,7 +89,7 @@ async def send_news(message: types.Message):
 
 @dp.message_handler(commands=['top_evidence'])
 async def send_news(message: types.Message):
-    content = news_parser.get_evidence(news_parser.html_, news_parser.url)
+    content = news_parser.get_evidence(news_parser.html_.text, news_parser.url)
     numb = int(re.findall(r'\d', message.text)[0])
     for i in range(numb):
         news = content[i]
