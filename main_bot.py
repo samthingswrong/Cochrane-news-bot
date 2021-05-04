@@ -61,8 +61,7 @@ async def say_hi(message: types.Message):
 
 @dp.message_handler(commands=['news'])
 async def send_news(message: types.Message):
-    html = prs.get_html(prs.NEWS_URL)
-    content = prs.get_content(html.text, prs.NEWS_URL)
+    content = news_parser.get_content(news_parser.html_, news_parser.url)
     for news in content:
         kb.inline_button_link.url = news['article_link']
         await bot.send_photo(message.from_user.id,
@@ -73,10 +72,9 @@ async def send_news(message: types.Message):
                              )
 
 
-@dp.message_handler(commands=['topnews'])
+@dp.message_handler(commands=['top_news'])
 async def send_news(message: types.Message):
-    html = prs.get_html(prs.NEWS_URL)
-    content = prs.get_content(html.text, prs.NEWS_URL)
+    content = news_parser.get_content(news_parser.html_, news_parser.url)
     numb = int(re.findall(r'\d', message.text)[0])
     for i in range(numb):
         news = content[i]
@@ -87,6 +85,20 @@ async def send_news(message: types.Message):
                              disable_notification=True,
                              reply_markup=kb.inline_kb_link
                              )
+
+
+@dp.message_handler(commands=['top_evidence'])
+async def send_news(message: types.Message):
+    content = news_parser.get_evidence(news_parser.html_, news_parser.url)
+    numb = int(re.findall(r'\d', message.text)[0])
+    for i in range(numb):
+        news = content[i]
+        kb.inline_button_link.url = news['article_link']
+        await bot.send_message(message.from_user.id,
+                               text=news['short_description'].upper() + '\n' + news['publish_date'] + '\n',
+                               disable_notification=True,
+                               reply_markup=kb.inline_kb_link
+                               )
 
 
 @dp.message_handler(commands=['help'])
