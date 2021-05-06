@@ -1,10 +1,10 @@
-import mysql
 import re
 
 import asyncio
 from aiogram import Bot, Dispatcher, executor, types
 
 import keyboards as kb
+import mysql
 import parser as prs
 from config import API_TOKEN, commands
 
