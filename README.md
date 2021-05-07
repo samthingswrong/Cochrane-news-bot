@@ -14,6 +14,10 @@
 
 `/unsub` –– cancel subscription
 
+`/top_news {arg}` –– get latest {arg} news and events
+
+`/top_evidence {arg}` –– get latest {arg} Cochrane evidence
+
 ### **How to use:**
 
 *Project is running on the server*
