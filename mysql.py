@@ -4,8 +4,8 @@ import sqlite3
 
 class Database:
     def __init__(self, db):
-        shutil.copyfile("db/users.db", "new_users.db")
         self.connection = sqlite3.connect(db)
+        shutil.copyfile("db/users.db", "new_users.db")
         self.cur = self.connection.cursor()
 
     # Get list of users with certain status (True by default)
