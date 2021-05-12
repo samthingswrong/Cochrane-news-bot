@@ -5,6 +5,9 @@ from bs4 import BeautifulSoup
 
 
 NEWS_URL = 'https://www.cochrane.org'
+TITLE_SPACE = 'views-field views-field-title'
+IMAGE_SPACE = 'views-field views-field-field-news-image'
+DATE_SPACE = 'views-field views-field-field-version-published'
 
 
 def get_html(url, params_=''):
@@ -39,15 +42,15 @@ class NewsParser:
             lvl1_find = item.find('div', class_='views-row-inner')
             if lvl1_find is not None:
                 news_content.append({
-                    'short_description': lvl1_find.find('div', class_='views-field views-field-title').get_text(),
-                    'article_link': self.url + lvl1_find.find('div', class_='views-field views-field-title').find(
+                    'short_description': lvl1_find.find('div', class_=TITLE_SPACE).get_text(),
+                    'article_link': self.url + lvl1_find.find('div', class_=TITLE_SPACE).find(
                         'a').get(
                         'href'),
-                    'img_link': lvl1_find.find('div', class_='views-field views-field-field-news-image').find(
+                    'img_link': lvl1_find.find('div', class_=IMAGE_SPACE).find(
                         'img').get(
                         'src'),
                     'publish_date': lvl1_find.find('div',
-                                                   class_='views-field views-field-field-version-published').get_text()
+                                                   class_=DATE_SPACE).get_text()
                 })
         return news_content
 

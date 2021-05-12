@@ -20,20 +20,21 @@ news_parser = prs.NewsParser()
 async def scheduled(wait_for):
     while True:
         await asyncio.sleep(wait_for)
-
+        subscriptions = db.get_users()
         new_post = news_parser.get_new_post_key()
         if new_post != news_parser.get_last_post_key():
             post = news_parser.get_content()[0]
             kb.inline_button_link.url = post['article_link']
-            subscriptions = db.get_users()
+
             for s in subscriptions:
+                print(subscriptions)
                 await bot.send_photo(s[0],
                                      post['img_link'],
                                      caption=post['short_description'].upper() + '\n' + post['publish_date'] + '\n',
                                      disable_notification=True,
                                      reply_markup=kb.inline_kb_link
                                      )
-            news_parser.update_last_post_key(new_post)
+                news_parser.update_last_post_key(new_post)
 
 
 @dp.message_handler(commands=['sub'])
@@ -106,10 +107,8 @@ async def send_top_evidence(message: types.Message):
 # Open command list
 @dp.message_handler(commands=['help'])
 async def help(message: types.Message):
-    msg = ''
-    for command in commands:
-        msg += command + '\n'
-    await message.answer(msg)
+    msg = '\n'
+    await message.answer(msg.join(commands))
 
 
 # Report error or wrong command
@@ -120,5 +119,5 @@ async def unknown(message: types.Message):
 
 if __name__ == '__main__':
     loop = asyncio.get_event_loop()
-    loop.create_task(scheduled(1))
+    loop.create_task(scheduled(10))
     executor.start_polling(dp, skip_updates=True)
