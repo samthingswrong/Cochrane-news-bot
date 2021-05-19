@@ -9,4 +9,3 @@ class TestBot(unittest.TestCase):
     def test_last_post_key_init(self):
         pr = prs.NewsParser()
         self.assertEqual(pr.get_last_post_key(), 0)
-
