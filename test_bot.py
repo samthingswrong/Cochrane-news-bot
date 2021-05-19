@@ -16,7 +16,7 @@ class TestBot(unittest.TestCase):
 
     def test_add_user_to_db(self):
         test_id = randrange(100000)
-        db = mysql.Database("db/users.db")
+        db = mysql.Database()
         db.add_user(test_id)
         users = db.get_users()
         self.assertEqual(users[len(users) - 1][0], test_id)
