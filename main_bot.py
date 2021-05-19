@@ -27,7 +27,6 @@ async def scheduled(wait_for):
             kb.inline_button_link.url = post['article_link']
 
             for s in subscriptions:
-                print(subscriptions)
                 await bot.send_photo(s[0],
                                      post['img_link'],
                                      caption=post['short_description'].upper() + '\n' + post['publish_date'] + '\n',
