@@ -1,1 +1,1 @@
-bot: python3 postgresql.py
+bot: python3 main_bot.py
