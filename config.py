@@ -3,6 +3,11 @@ from os import environ
 
 API_TOKEN = environ['API_KEY']
 
+DATABASE_URL = environ['DATABASE_URL']
+HOST = environ['HOST']
+DB_NAME = environ['DB_NAME']
+USER_NAME = environ['USER_NAME']
+PASSWORD = environ['PASSWORD']
 
 
 commands = ['/help - open command list',

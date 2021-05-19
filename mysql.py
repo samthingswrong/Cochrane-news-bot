@@ -1,4 +1,5 @@
 import psycopg2
+import config as cfg
 
 DB_URI = "postgres://thpkcrtlyjjbol:2c398e922a079211293dac6fb93b158fa89feee676388e422668a204bdd4890f@ec2-54-155-208-5" \
          ".eu-west-1.compute.amazonaws.com:5432/d6njl67qe4of0h "
@@ -6,12 +7,11 @@ DB_URI = "postgres://thpkcrtlyjjbol:2c398e922a079211293dac6fb93b158fa89feee67638
 
 class Database:
     def __init__(self):
-        # self.connection = psycopg2.connect(
-        #    host="ec2-54-155-208-5.eu-west-1.compute.amazonaws.com",
-        #    dbname="d6njl67qe4of0h",
-        #    user="thpkcrtlyjbol",
-        #    password="2c398e922a079211293dac6fb93b158fa89feee676388e422668a204bdd4890f")
-        self.connection = psycopg2.connect(DB_URI, sslmode='require')
+        self.connection = psycopg2.connect(
+            host=cfg.HOST,
+            dbname=cfg.DB_NAME,
+            user=cfg.USER_NAME,
+            password=cfg.PASSWORD)
         self.cur = self.connection.cursor()
 
     # Create users table
