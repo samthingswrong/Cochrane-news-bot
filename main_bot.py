@@ -12,7 +12,7 @@ from config import API_TOKEN, commands
 bot = Bot(token=API_TOKEN)
 dp = Dispatcher(bot)
 
-db = mysql.Database("new_users.db")
+db = mysql.Database()
 news_parser = prs.NewsParser()
 
 

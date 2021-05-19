@@ -1,12 +1,19 @@
-import shutil
-import sqlite3
+import psycopg2
 
 
 class Database:
-    def __init__(self, db):
-        self.connection = sqlite3.connect(db)
-        shutil.copyfile("db/users.db", "new_users.db")
+    def __init__(self):
+        self.connection = psycopg2.connect(
+            host="ec2-54-155-208-5.eu-west-1.compute.amazonaws.com",
+            database="d6njl67qe4of0h",
+            user="thpkcrtlyjbol",
+            password="2c398e922a079211293dac6fb93b158fa89feee676388e422668a204bdd4890f")
         self.cur = self.connection.cursor()
+
+    # Create users table
+    def create_table(self):
+        with self.connection:
+            self.cur.execute("""CREATE TABLE `users` (user_id, sub_status)""")
 
     # Get list of users with certain status (True by default)
     def get_users(self, sub_status=1):
